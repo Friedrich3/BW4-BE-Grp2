@@ -1,5 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<BW4_BE_Grp2.Controllers.CarrelloItem>
+
+<div class="cart-container">
+    <div class="cart-items">
+        <h2>My Cart</h2>
+        @foreach (var item in Model)
+        {
+            <div class="cart-item">
+                <div class="item-details">
+                    <h3>@item.Nome</h3>
+                    <p>@item.Prezzo €</p>
+                    <p>Quantity: @item.Quantita</p>
+                </div>
+                <form asp-action="Rimuovi" method="post">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <button type="submit" class="remove-button">X</button>
+                </form>
+            </div>
+        }
+    </div>
+
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+        <p>Total: @Model.Sum(item => item.Prezzo * item.Quantita) €</p>
+        <button class="checkout-button">Checkout</button>
+        <p><small>Secure Checkout</small></p>
+    </div>
+</div>
