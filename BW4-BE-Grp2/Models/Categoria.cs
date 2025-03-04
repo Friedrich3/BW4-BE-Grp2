@@ -4,6 +4,6 @@
     {
         public int IdCategoria { get; set; }
         public string? NomeCategoria { get; set; }
-        //public string? ImmagineCategoria { get; set; }
+        public string? ImmagineCategoria { get; set; }
     }
 }

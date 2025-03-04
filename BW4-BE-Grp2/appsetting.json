@@ -1,5 +1,0 @@
-{
-    "ConnectionStrings": {
-        "DefaultConnection": "Server=VINTRY\\SQLEXPRESS;Database=EpiTech;Integrated Security=True;TrustServerCertificate=True;"
-    }
-}
