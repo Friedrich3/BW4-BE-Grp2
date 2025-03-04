@@ -31,7 +31,7 @@ namespace BW4_BE_Grp2.Controllers
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
-                string query = "SELECT IdProdotto, Nome, Prezzo, Immagine, Brand FROM Prodotti";
+                string query = "SELECT IdProdotto, Nome, Prezzo, Immagine, Brand FROM Prodotti ORDER BY Nome ASC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -99,7 +99,6 @@ namespace BW4_BE_Grp2.Controllers
                     command.Parameters.AddWithValue("@IdCategoria", addViewModel.IdCategoria);
                    
                     int righeAggiunte = await command.ExecuteNonQueryAsync();
-                    Console.WriteLine(righeAggiunte);
                 }
             }
             return RedirectToAction("Index");
@@ -109,7 +108,11 @@ namespace BW4_BE_Grp2.Controllers
 
         public IActionResult Edit()
         {
-            return View();
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete()
+        {
+            return RedirectToAction("Index");
         }
     }
 }
