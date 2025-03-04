@@ -1,70 +1,85 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using BW4_BE_Grp2.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace BW4_BE_Grp2.Controllers
 {
-    public class CarrelloItem
-    {
-        public int Id { get; set; }
-        public string? Nome { get; set; }
-        public decimal Prezzo { get; set; }
-        public int Quantita { get; set; }
-        public string? ImmagineUrl { get; set; }
-    }
-
     public class CarrelloController : Controller
     {
-        private static List<CarrelloItem> carrello = new List<CarrelloItem>(){
-                new CarrelloItem { Id = 1, Nome = "Prodotto 1", Prezzo = 10.99m, Quantita = 1, ImmagineUrl = "m.media-amazon.com/images/I/61-SKW5hv2L.jpg" },
-                new CarrelloItem { Id = 2, Nome = "Prodotto 2", Prezzo = 20.50m, Quantita = 1, ImmagineUrl = "m.media-amazon.com/images/I/61-SKW5hv2L.jpg" },
-                new CarrelloItem { Id = 3, Nome = "Prodotto 3", Prezzo = 15.00m, Quantita = 1, ImmagineUrl = "m.media-amazon.com/images/I/61-SKW5hv2L.jpg" }
-            };
+        private readonly string _connectionString;
 
-        // Finto database
-        public static class FintoDatabase
+        public CarrelloController(IConfiguration configuration)
         {
-            public static List<CarrelloItem> ProdottiDisponibili = new List<CarrelloItem>
-            {
-                new CarrelloItem { Id = 1, Nome = "Prodotto 1", Prezzo = 10.99m, Quantita = 1, ImmagineUrl = "m.media-amazon.com/images/I/61-SKW5hv2L.jpg" },
-                new CarrelloItem { Id = 2, Nome = "Prodotto 2", Prezzo = 20.50m, Quantita = 1, ImmagineUrl = "m.media-amazon.com/images/I/61-SKW5hv2L.jpg" },
-                new CarrelloItem { Id = 3, Nome = "Prodotto 3", Prezzo = 15.00m, Quantita = 1, ImmagineUrl = "m.media-amazon.com/images/I/61-SKW5hv2L.jpg" }
-            };
+            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
         public IActionResult Index()
         {
-            var totale = carrello.Sum(item => item.Prezzo * item.Quantita);
-            ViewBag.Totale = totale;
+            List<Ordini> carrello = new List<Ordini>();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                string query = "SELECT O.IdProdotto, O.IdCarrello, O.PrezzoUnita, O.Quantita, P.Nome, P.Immagine FROM Ordini AS O INNER JOIN Prodotti AS P ON O.IdProdotto = P.IdProdotto";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        carrello.Add(new Ordini
+                        {
+                            IdProdotto = reader.GetGuid(0),
+                            IdCarrello = reader.GetGuid(1),
+                            PrezzoUnita = reader.GetDecimal(2),
+                            Quantita = reader.GetInt32(3),
+                            Prodotto = new Prodotto()
+                            {
+                                Nome = reader.GetString(4),
+                                Immagine = reader.GetString(5)
+                            }
+                        });
+                    }
+                }
+            }
+
             return View(carrello);
         }
 
         [HttpPost]
-        public IActionResult Aggiungi(int id)
+        public IActionResult AggiornaQuantita(Guid idProdotto, int quantita)
         {
-            var prodotto = FintoDatabase.ProdottiDisponibili.FirstOrDefault(p => p.Id == id);
-
-            if (prodotto != null)
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                var itemCarrello = carrello.FirstOrDefault(i => i.Id == id);
-
-                if (itemCarrello != null)
+                conn.Open();
+                string query = "UPDATE Ordini SET Quantita = @Quantita WHERE IdProdotto = @IdProdotto";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    itemCarrello.Quantita++;
-                }
-                else
-                {
-                    carrello.Add(new CarrelloItem
-                    {
-                        Id = prodotto.Id,
-                        Nome = prodotto.Nome,
-                        Prezzo = prodotto.Prezzo,
-                        ImmagineUrl = prodotto.ImmagineUrl,
-                        Quantita = 1
-                    });
+                    cmd.Parameters.AddWithValue("@Quantita", quantita);
+                    cmd.Parameters.AddWithValue("@IdProdotto", idProdotto);
+                    cmd.ExecuteNonQuery();
                 }
             }
+            return RedirectToAction("Index");
+        }
 
+        [HttpPost]
+        public IActionResult Rimuovi(Guid idProdotto)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                string query = "DELETE FROM Ordini WHERE IdProdotto = @IdProdotto";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdProdotto", idProdotto);
+                    cmd.ExecuteNonQuery();
+                }
+            }
             return RedirectToAction("Index");
         }
     }

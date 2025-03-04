@@ -148,3 +148,115 @@ a {
     }
 /* ------ END Footer ------ */
 
+/* ------ CARRELLO ------*/
+
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.cart-items {
+    width: 60%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item-left {
+    flex: 1;
+}
+
+.cart-item-right {
+    flex: 2;
+    padding-left: 15px;
+}
+
+.product-image {
+    width: 80px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-description, .product-price {
+    font-size: 14px;
+    color: #555;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.quantity-btn {
+    background: #eee;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.quantity {
+    margin: 0 10px;
+}
+
+.remove-button {
+    background: transparent;
+    color: red;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.order-summary {
+    width: 35%;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.summary-details {
+    font-size: 14px;
+    color: #555;
+}
+
+.total-price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.checkout-button {
+    width: 100%;
+    background: #4a3aff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
