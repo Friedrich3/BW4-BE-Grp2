@@ -20,3 +20,68 @@ html {
 body {
   margin-bottom: 60px;
 }
+/*NAVBAR*/
+.custom-nav-color {
+    color: #593BCE;
+}
+
+.custom-nav-color:hover {
+        color: #B088EB;
+}
+.custom-nav-bg {
+    background-color: #A3AEB3 !important ;
+}
+
+/*END NAV*/
+
+/* ------ Footer ------ */
+
+.footer {
+    background-color: #000;
+    color: white;
+    padding: 40px 20px;
+}
+
+ a {
+    color: white;
+    text-decoration: none;
+ }
+
+ a:hover {
+    text-decoration: underline;
+ }
+
+.form-select {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+}
+
+.footer-top {
+    background-color: #000;
+    color: white;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom {
+    background-color: #2E1A47;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.form-select {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+}
+
+    .form-select:focus {
+        border-color: #ccc;
+        outline: none;
+        box-shadow: none;
+    }
+/* ------ END Footer ------ */
