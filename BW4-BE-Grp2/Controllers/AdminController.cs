@@ -105,7 +105,7 @@ namespace BW4_BE_Grp2.Controllers
         }
 
 
-        [HttpGet("Admin/Edit/id:guid")]
+        [HttpGet("Admin/Edit/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var EditProduct = new EditViewModel();
@@ -134,7 +134,7 @@ namespace BW4_BE_Grp2.Controllers
                 }
             }
             //CONNESSIONE AL DB PER RIPRENDERE LE LISTE
-            var ListaCategorie = new List<Categoria>();
+            var CategoryList = new List<Categoria>();
             await using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -145,18 +145,44 @@ namespace BW4_BE_Grp2.Controllers
                     {
                         while (await reader.ReadAsync())
                         {
-                            ListaCategorie.Add(new Categoria() { IdCategoria = reader.GetInt32(0), NomeCategoria = reader.GetString(1) });
+                            CategoryList.Add(new Categoria() { IdCategoria = reader.GetInt32(0), NomeCategoria = reader.GetString(1) });
                         }
                     }
                 }
             }
-            ViewData["Categorie"] = ListaCategorie;
+            ViewBag.Categorie = CategoryList;
             return View(EditProduct);
         }
 
+        [HttpPost("Admin/EditSave/{id:guid}")]
+        public async Task<IActionResult> EditSave(Guid id, EditViewModel editViewModel) 
+        {
+            await using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "UPDATE Prodotti SET Nome=@nome, Brand=@brand , Prezzo=@prezzo, Descrizione=@descrizione, Immagine=@immagine, ImmagineAlt=@immagineAlt, IdCategoria=@idcategoria WHERE IdProdotto=@idprodotto";
+                await using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idprodotto", id);
+                    command.Parameters.AddWithValue("@nome", editViewModel.Nome);
+                    command.Parameters.AddWithValue("@brand", editViewModel.Brand);
+                    command.Parameters.AddWithValue("@prezzo", editViewModel.Prezzo);
+                    command.Parameters.AddWithValue("@descrizione", editViewModel.Descrizione);
+                    command.Parameters.AddWithValue("@immagine", editViewModel.Immagine);
+                    command.Parameters.AddWithValue("@immagineAlt", editViewModel.ImmagineAlt);
+                    command.Parameters.AddWithValue("@idcategoria", editViewModel.IdCategoria);
+
+                    int response = await command.ExecuteNonQueryAsync();
+                    //TODO Cambiare gestione errore DB
+                    if (response == 0)
+                    { Console.WriteLine("Errore"); }
+                }
+            }
+            return RedirectToAction("Index");
+        }
 
 
-        [HttpGet("Admin/Delete/id:guid")]
+        [HttpGet("Admin/Delete/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await using (SqlConnection connection = new SqlConnection(_connectionString)) {
