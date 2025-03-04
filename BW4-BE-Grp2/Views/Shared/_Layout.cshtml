@@ -13,18 +13,24 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BW4_BE_Grp2</a>
+                <a class="navbar-brand custom-nav-color" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/IconaBw4.png" width="50px" class="rounded-circle" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+                    <ul class="navbar-nav flex-grow-1 align-content-center">
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link custom-nav-color" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link custom-nav-color" asp-area="" asp-controller="Admin" asp-action="Index">Administration</a>
+                        </li>
+                        <li class="nav-item ms-auto">
+                            <div class="d-flex">
+                                <a class="nav-link mx-2" asp-controller="Admin" asp-action="Index"><i class="bi bi-person-circle fs-4 custom-nav-color"></i></a>
+                                <a class="nav-link mx-3" asp-controller="Carrello" asp-action="Index"><i class="bi bi-cart2 fs-4 custom-nav-color"></i></a>
+                            </div>
                         </li>
                     </ul>
                 </div>
