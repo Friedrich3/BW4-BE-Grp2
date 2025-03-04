@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "EpiTech - Home";
 
     var prodotti = new List<dynamic>
     {
@@ -10,116 +10,87 @@
         new { Id = 5, Name = "Apple AirPods Max", Price = 499.99, ImageUrl = "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_144664969?x=536&y=402&format=jpg&quality=80" }
     };
 
-    var prodottiConsigliati = new List<dynamic>
+
+
+    var categoryImages = new Dictionary<string, string>
     {
-        new { Id = 6, Name = "Apple iPad Air", Price = 649.99, ImageUrl = "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_140588826?x=536&y=402&format=jpg&quality=80&sp=yes&strip=yes&trim&ex=536&ey=402&align=center&resizesource&unsharp=1.5x1+0.7+0.02&cox=0&coy=0&cdx=536&cdy=402" },
-        new { Id = 7, Name = "Apple Magic Mouse", Price = 79.00, ImageUrl = "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146458692?x=536&y=402&format=jpg&quality=80&sp=yes&strip=yes&trim&ex=536&ey=402&align=center&resizesource&unsharp=1.5x1+0.7+0.02&cox=0&coy=0&cdx=536&cdy=402" },
-        new { Id = 8, Name = "Apple AirTag", Price = 29.99, ImageUrl = "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_92306009?x=536&y=402&format=jpg&quality=80&sp=yes&strip=yes&trim&ex=536&ey=402&align=center&resizesource&unsharp=1.5x1+0.7+0.02&cox=0&coy=0&cdx=536&cdy=402" }
+        {"Smartphone", "https://files.refurbed.com/hp/navigation/categories/smartphones.webp"},
+        {"Portatili", "https://files.refurbed.com/hp/navigation/categories/laptops.webp"},
+        {"Tablet", "https://files.refurbed.com/hp/navigation/categories/tablets.webp"},
+        {"SmartWatch", "https://files.refurbed.com/hp/navigation/categories/smartwatches.webp"},
+        {"Monitor", "https://files.refurbed.com/hp/navigation/categories/monitors.webp"},
+        {"Audio", "https://files.refurbed.com/hp/navigation/categories/headphones.webp"},
+        {"Console", "https://files.refurbed.com/hp/navigation/categories/consoles.webp"},
+        {"Televisori", "https://files.refurbed.com/hp/navigation/categories/tvs.webp"},
+        {"Pc Desktop", "https://files.refurbed.com/hp/navigation/categories/desktops.webp"},
+        {"Stampanti", "https://files.refurbed.com/hp/navigation/categories/printers.webp"},
+        {"Fotocamere", "https://files.refurbed.com/hp/navigation/categories/cameras.webp"},
+        {"Accessori", "https://files.refurbed.com/hp/navigation/categories/accessories.webp"}
     };
+
 }
 
-<!-- Hero Section -->
-<div class="bg-light rounded-3">
-    <div class="container text-center py-5">
-        <h4 class="fw-bold text-dark mb-4" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);">Prodotti Ricondizionati con 12 Mesi di Garanzia</h4>
-        <div id="CategoryCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <!-- Group 1 -->
-                <div class="carousel-item active">
-                    <div class="row justify-content-center gx-3 py-4">
-                        @foreach (var category in new List<(string Name, string ImageUrl)>
-                        {
-                        ("Smartphone", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Portatili", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Tablet", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("SmartWatch", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80")
-                        })
-                        {
-                            <div class="col-6 col-sm-4 col-md-2 py-2">
-                                <div class="card border-0 hero-card" style="border-radius: 10px; transition: transform 0.2s; cursor: pointer;">
-                                    <img src="@category.ImageUrl" class="card-img-top" alt="@category.Name" style="max-height: 120px; width: auto; object-fit: contain; border-radius: 10px 10px 0 0;">
-                                    <div class="card-body text-center py-2">
-                                        <h5 class="fw-bold text-primary" style="font-size: 14px; color: #2E7D32;">@category.Name</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
+<h1 class="text-center my-3" style="font-weight: 700; color: #1B3A2A;">Benvenuti su EpiTech</h1>
+<p class="text-center mb-3" style="font-size: 1.2rem; color: #555;">La tua destinazione per tecnologia ricondizionata di alta qualità</p>
 
-                <!-- Group 2 -->
-                <div class="carousel-item">
-                    <div class="row justify-content-center gx-3 py-4">
-                        @foreach (var category in new List<(string Name, string ImageUrl)>
-                        {
-                        ("Monitor", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Audio", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Console", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Televisori", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80")
-                        })
-                        {
-                            <div class="col-6 col-sm-4 col-md-2 py-2">
-                                <div class="card border-0 hero-card" style="border-radius: 10px; transition: transform 0.2s; cursor: pointer;">
-                                    <img src="@category.ImageUrl" class="card-img-top" alt="@category.Name" style="max-height: 120px; width: auto; object-fit: contain; border-radius: 10px 10px 0 0;">
-                                    <div class="card-body text-center py-2">
-                                        <h5 class="fw-bold text-primary" style="font-size: 14px; color: #2E7D32;">@category.Name</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
+<!-- Categories Section -->
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                @{
+                    var firstSixCategories = categoryImages.Take(6).ToList();
+                    var remainingCategories = categoryImages.Skip(6).ToList();
+                }
 
-                <!-- Group 3 -->
-                <div class="carousel-item">
-                    <div class="row justify-content-center gx-3 py-4">
-                        @foreach (var category in new List<(string Name, string ImageUrl)>
+                @foreach (var category in firstSixCategories)
+                {
+                    <button class="btn btn-outline-secondary CategoryBtn BtnCustomHome" style="width: 120px; height: 120px;">
+                    <img src="@category.Value" alt="@category.Key" style="width: 60px; height: 60px; object-fit: contain;">
+                    <div class="mt-2 small">@category.Key</div>
+                </button>
+                }
+
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary CategoryBtn BtnCustomHome dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="width: 120px; height: 120px;">
+                        <div>Altro</div>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (var category in remainingCategories)
                         {
-                        ("Pc Desktop", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Stampanti", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Fotocamere", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80"),
-                        ("Accessori", "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_146547517?x=536&y=402&format=jpg&quality=80")
-                        })
-                        {
-                            <div class="col-6 col-sm-4 col-md-2 py-2">
-                                <div class="card border-0 hero-card" style="border-radius: 10px; transition: transform 0.2s; cursor: pointer;">
-                                    <img src="@category.ImageUrl" class="card-img-top" alt="@category.Name" style="max-height: 120px; width: auto; object-fit: contain; border-radius: 10px 10px 0 0;">
-                                    <div class="card-body text-center py-2">
-                                        <h5 class="fw-bold text-primary" style="font-size: 14px; color: #2E7D32;">@category.Name</h5>
-                                    </div>
-                                </div>
-                            </div>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img src="@category.Value" alt="@category.Key" style="width: 30px; height: 30px; object-fit: contain;">
+                                <span class="ms-2">@category.Key</span>
+                            </a>
+                        </li>
                         }
-                    </div>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#CategoryCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(60%) sepia(80%) saturate(120%) hue-rotate(160deg);"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#CategoryCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(60%) sepia(80%) saturate(120%) hue-rotate(160deg);"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
     </div>
 </div>
 
 <style>
-    .hero-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .CategoryBtn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
     }
 
-        .hero-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .CategoryBtn:hover {
+            transform: translateY(-5px);
         }
 </style>
 
 <!-- svg -->
-<div class="d-flex justify-content-center align-items-center gap-5 py-3">
+<div class="d-flex justify-content-center align-items-center gap-5 py-2">
     <div class="d-flex align-items-center gap-2 p-4">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="green">
             <symbol id="a" fill="green" viewBox="0 0 20 20">
@@ -130,41 +101,45 @@
             </symbol>
             <use href="#a" />
         </svg>
-        <span>Spedizione inclusa</span>
+        <span style="font-size: 0.9rem;">Spedizione inclusa</span>
     </div>
-    <div class="d-flex align-items-center gap-2 p-4">
+    <div class="d-none d-lg-flex align-items-center gap-2 p-4">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="green">
             <symbol xmlns="http://www.w3.org/2000/svg" fill="none" stroke="green" viewBox="0 0 20 20" id="324c216c-af10-46eb-8005-ec6e9c3f2dce">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.052" d="M.75 16.202h14.837M11.21 7.98l1.947 1.946 6.093-6.093M3.954 7.21a3.086 3.086 0 0 1 3.086 3.087 3.083 3.083 0 0 1-3.086 3.086 3.083 3.083 0 0 1-3.087-3.086M6.6 4.56 3.953 7.21m-2.79-2.65h5.436" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.052" d="M15.404 9.884v.408a3.086 3.086 0 1 1-6.173 0V7.529A3.086 3.086 0 0 1 14.9 5.84" />
-            </symbol><use href="#324c216c-af10-46eb-8005-ec6e9c3f2dce" />
-            </svg>
-        <span>30 giorni diritto di reso</span>
+            </symbol>
+            <use href="#324c216c-af10-46eb-8005-ec6e9c3f2dce" />
+        </svg>
+        <span style="font-size: 0.9rem;">30 giorni diritto di reso</span>
     </div>
-    <div class="d-flex align-items-center gap-2 p-4">
+    <div class="d-none d-lg-flex align-items-center gap-2 p-4">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="green">
             <symbol xmlns="http://www.w3.org/2000/svg" fill="none" stroke="green" viewBox="0 0 20 20" id="528e2d66-fbe9-417d-ae24-a92ca011e238">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.052" d="M11.576 6.965h-9.52v9.52h9.52v-9.52Z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.052" d="M9.046 3.829h6.258a3.945 3.945 0 1 1 0 7.891H4.648" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.052" d="m6.86 9.517-2.212 2.208 2.212 2.212M.75 3.829h1.794m1.795 0h2.826" />
-            </symbol><use href="#528e2d66-fbe9-417d-ae24-a92ca011e238" />
-        </svg> 
-        <span>Min. 12 mesi di garanzia</span>
+            </symbol>
+            <use href="#528e2d66-fbe9-417d-ae24-a92ca011e238" />
+        </svg>
+        <span style="font-size: 0.9rem;">Min. 12 mesi di garanzia</span>
     </div>
-    <div class="d-flex align-items-center gap-2 p-4">
+    <div class="d-none d-lg-flex d-md-flex align-items-center gap-2 p-4">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" fill="green">
             <symbol xmlns="http://www.w3.org/2000/svg" fill="none" stroke="green" viewBox="0 0 20 20" id="5834d34c-f69a-41db-9853-63d8786b1e0d">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.178" d="M11.07 6.303a3.592 3.592 0 0 0-7.18.047 3.052 3.052 0 0 0-1.895 2.826 3.059 3.059 0 0 0 3.058 3.058 3.048 3.048 0 0 0 2.482-1.275 3.048 3.048 0 0 0 2.482 1.275 3.059 3.059 0 0 0 1.052-5.93Zm-4.29 5.429v4.98m1.51-4.98v4.98m-7.54.001h18.5m-2.194-3.728c0 .808-.657 1.465-1.465 1.465a1.466 1.466 0 0 1-1.464-1.465c0-.807.657-2.941 1.464-2.941.808 0 1.465 2.134 1.465 2.941Zm-1.465 1.465v2.263" />
-            </symbol><use href="#5834d34c-f69a-41db-9853-63d8786b1e0d" />
-        </svg>       
-        <span>Impatto CO₂ ridotto rispetto al nuovo</span>
+            </symbol>
+            <use href="#5834d34c-f69a-41db-9853-63d8786b1e0d" />
+        </svg>
+        <span style="font-size: 0.9rem;">Impatto CO₂ ridotto rispetto al nuovo</span>
     </div>
-   
+</div>
+
 </div>
 
 
 <!-- In Evidenza -->
-<h1 class="text-center mb-4">In Evidenza</h1>
+<h2 class="text-center mb-4">In Evidenza</h2>
 <div class="container">
     <div class="row gx-4">
         <!-- Apple Week Card -->
@@ -175,8 +150,8 @@
                     <h3 class="card-title fw-bold">APPLE WEEK</h3>
                     <p class="card-text">Risparmia sui ricondizionati Apple, acquistabili anche a rate senza interessi</p>
                     <div class="d-flex justify-content-center">
-                        <a href="#" class="btn btn-primary px-4 mt-auto w-25">Acquista ora</a>
-                    
+                        <a href="#" class="btn btn-outline-secondary BtnCustomHome px-4 mt-auto w-50">Acquista ora</a>
+
                     </div>
                 </div>
             </div>
@@ -190,8 +165,8 @@
                     <h3 class="card-title fw-bold">De'Longhi Weeks</h3>
                     <p class="card-text">Macchinette del caffè De'Longhi ricondizionate direttamente dal produttore, fino a -40% sul prezzo nuovo!</p>
                     <div class="d-flex justify-content-center">
-                        <a href="#" class="btn btn-primary px-4 mt-auto w-25">Acquista ora</a>
-                    
+                        <a href="#" class="btn btn-outline-secondary BtnCustomHome px-4 mt-auto w-50">Acquista ora</a>
+
                     </div>
                 </div>
             </div>
@@ -202,23 +177,68 @@
 </div>
 
 <!-- Consigliati per te -->
-<h2 class="text-center mt-5">Consigliati per Te</h2>
-<div class="container-fluid">
-    <div class="row gx-3">
-        @foreach (var product in prodottiConsigliati)
-        {
-            <div class="col-12 col-md-4 mb-4">
-                <div class="card border-0 shadow-lg">
-                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">@product.Name</h5>
-                        <p class="card-text">€ @product.Price</p>
-                        <a href="#" class="btn btn-secondary w-100">Aggiungi al carrello</a>
-                    </div>
-                </div>
+<h2 class="text-center mt-5 mb-4">Consigliati per Te</h2>
+<div class="container">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
+        @foreach (var product in prodotti)
+		{
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 150px; object-fit: contain;">
+                <div class="card-body p-3">
+                    <h6 class="card-title fw-bold mb-1">@product.Name</h6>
+                        <p class="card-text fw-bold mb-2" style="color: #1B3A2A;">€ @product.Price.ToString("N2")</p>
+					</div>                    <button class="btn btn-outline-secondary BtnCustomHome btn-sm w-100">Aggiungi al carrello</button>
+
             </div>
-        }
+        </div>
+		}
     </div>
 </div>
 
+<style>
+    .BtnCustomHome {
+        color: #1B3A2A;
+        border-color: #1B3A2A;
+        transition: all 0.3s ease;
+    }
+
+        .BtnCustomHome:hover {
+            background-color: #1B3A2A;
+            color: #fff;
+        }
+</style>
+
+<!-- Testimonials -->
+<div class="testimonials py-5 bg-light">
+	<div class="container">
+		<h2 class="text-center mb-5" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Cosa dicono i nostri clienti</h2>
+		<div class="row">
+			<div class="col-md-4 mb-4">
+				<div class="card h-100 border-0 shadow-sm" style="transition: all 0.3s ease;">
+					<div class="card-body d-flex flex-column justify-content-between">
+						<p class="card-text" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 1.1rem;">"Prodotti di alta qualità a prezzi incredibili. Sono rimasto davvero colpito!"</p>
+						<footer class="blockquote-footer mt-3" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Marco R.</footer>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 mb-4">
+				<div class="card h-100 border-0 shadow-sm" style="transition: all 0.3s ease;">
+					<div class="card-body d-flex flex-column justify-content-between">
+						<p class="card-text" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 1.1rem;">"Il servizio clienti è eccezionale. Hanno risolto il mio problema in pochissimo tempo."</p>
+						<footer class="blockquote-footer mt-3" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Laura B.</footer>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 mb-4">
+				<div class="card h-100 border-0 shadow-sm" style="transition: all 0.3s ease;">
+					<div class="card-body d-flex flex-column justify-content-between">
+						<p class="card-text" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 1.1rem;">"Ho acquistato un iPhone ricondizionato e sembra nuovo di zecca. Consigliatissimo!"</p>
+						<footer class="blockquote-footer mt-3" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Giovanni M.</footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
