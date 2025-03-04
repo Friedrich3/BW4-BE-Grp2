@@ -110,8 +110,24 @@ namespace BW4_BE_Grp2.Controllers
         {
             return RedirectToAction("Index");
         }
-        public IActionResult Delete()
+
+        [HttpGet("Admin/Delete/id:guid")]
+        public async Task<IActionResult> Delete(Guid id)
         {
+            await using (SqlConnection connection = new SqlConnection(_connectionString)) {
+            await connection.OpenAsync();
+            var query = "DELETE FROM Prodotti WHERE IdProdotto = @IdProdotto;";
+                await using (SqlCommand command = new SqlCommand(query, connection)) {
+                    command.Parameters.AddWithValue("@IdProdotto",id);
+                    int risposta = await command.ExecuteNonQueryAsync();
+
+                    //TODO Cambiare gestione errore DB
+                    if (risposta == 0) { Console.WriteLine("Errore"); }
+                }
+
+
+            }
+
             return RedirectToAction("Index");
         }
     }
