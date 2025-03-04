@@ -105,11 +105,56 @@ namespace BW4_BE_Grp2.Controllers
         }
 
 
-
-        public IActionResult Edit()
+        [HttpGet("Admin/Edit/id:guid")]
+        public async Task<IActionResult> Edit(Guid id)
         {
-            return RedirectToAction("Index");
+            var EditProduct = new EditViewModel();
+
+            await using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT * FROM Prodotti WHERE IdProdotto = @IdProdotto; ";
+                await using (SqlCommand command = new SqlCommand(query, connection)) 
+                {
+                    command.Parameters.AddWithValue("IdProdotto", id);
+                    await using (SqlDataReader reader = await command.ExecuteReaderAsync()) 
+                    {
+                        while (await reader.ReadAsync()) 
+                        {
+                            EditProduct.IdProdotto = reader.GetGuid(0);
+                            EditProduct.Nome = reader.GetString(1);
+                            EditProduct.Brand = reader.GetString(2);
+                            EditProduct.Prezzo = reader.GetDecimal(3);
+                            EditProduct.Descrizione = reader.GetString(4);
+                            EditProduct.Immagine = reader.GetString(5);
+                            EditProduct.ImmagineAlt = reader.GetString(6);
+                            EditProduct.IdCategoria = reader.GetInt32(7);
+                        }
+                    }
+                }
+            }
+            //CONNESSIONE AL DB PER RIPRENDERE LE LISTE
+            var ListaCategorie = new List<Categoria>();
+            await using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT IdCategoria, NomeCategoria FROM Categorie";
+                await using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    await using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            ListaCategorie.Add(new Categoria() { IdCategoria = reader.GetInt32(0), NomeCategoria = reader.GetString(1) });
+                        }
+                    }
+                }
+            }
+            ViewData["Categorie"] = ListaCategorie;
+            return View(EditProduct);
         }
+
+
 
         [HttpGet("Admin/Delete/id:guid")]
         public async Task<IActionResult> Delete(Guid id)

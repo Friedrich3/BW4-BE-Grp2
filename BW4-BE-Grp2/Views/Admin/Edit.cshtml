@@ -1,5 +1,62 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿ @model AddViewModel 
 @{
+	ViewData["Title"] = "Edit";
+	var ListaCategorie = ViewData["Categorie"] as List<Categoria>;
 }
+ 
+
+<div class="container-fluid pb-3">
+	<div class="row">
+		<h3 class="col-10">Modifica il Prodotto Selezionato</h3>
+		<a asp-controller="Admin" asp-action="Index" class="col-2 text-primary text-center align-self-center"><i class="bi bi-arrow-left-square-fill"></i>&nbsp; I miei Prodotti</a>
+	</div>
+	<div class="row">
+		<form method="post" asp-controller="Admin" asp-action="AddEdit">
+			<div class="mb-3">
+				<label for="nomeProdotto" asp-for="Nome" class="form-label"></label>
+				<input type="text" class="form-control" id="nomeProdotto" asp-for="Nome" placeholder="Inserisci il nome del prodotto..." required>
+			</div>
+			<div class="mb-3">
+				<label for="brandProdotto" asp-for="Brand" class="form-label"></label>
+				<input type="text" class="form-control" id="brandProdotto" asp-for="Brand" placeholder="Inserisci il brand..." required>
+			</div>
+			<div class="mb-3">
+				<label for="categoriaProdotto" asp-for="IdCategoria" class="form-label"></label>
+				<select class="form-control" asp-for="IdCategoria" asp-items="@(new SelectList(ListaCategorie,"IdCategoria","NomeCategoria"))" required>
+					<option value="">--Seleziona una Categoria--</option>
+				</select>
+			</div>
+			<div class="mb-3">
+				<label for="prezzoProdotto" asp-for="Prezzo" class="form-label"></label>
+				<input type="number" class="form-control" id="prezzoProdotto" asp-for="Prezzo" step="0.01" placeholder="Es.. 99,90" value="" required>
+			</div>
+
+			<div class="mb-3 row">
+				<div class="col-10">
+				<label for="immagineProdotto" asp-for="Immagine" class="form-label"></label>
+				<input type="text" class="form-control" id="immagineProdotto" asp-for="Immagine" placeholder="ES.. https://m.media-amazon.com/images/I/61gYB2HghmL.__AC_SX300_SY300_QL70_ML2_.jpg" required>
+				</div>
+				<div class="col-2">
+					<img src="@Model.Immagine" width="50"/>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="immagineAltProdotto" asp-for="ImmagineAlt" class="form-label"></label>
+				<input type="text" class="form-control" id="immagineAltProdotto" asp-for="ImmagineAlt" placeholder="ES.. https://m.media-amazon.com/images/I/61gYB2HghmL.__AC_SX300_SY300_QL70_ML2_.jpg" required>
+			</div>
+			<div class="mb-3">
+				<label for="descrizioneProdotto" asp-for="Descrizione" class="form-label">Descrizione</label>
+				<textarea class="form-control" id="descrizioneProdotto" asp-for="Descrizione" rows="3" placeholder="Inserisci la descrizione del prodotto" required></textarea>
+			</div>
+
+			<div class="d-flex justify-content-between">
+				<button type="submit" class="btn btn-warning">Modifica Prodotto</button>
+				<button type="reset" class="btn btn-secondary">Reset</button>
+			</div>
+
+
+		</form>
+	</div>
+</div>
+
