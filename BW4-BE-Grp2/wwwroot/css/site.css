@@ -16,7 +16,9 @@ html {
     position: relative;
     min-height: 100%;
 }
-
+main {
+    min-height: 75vh;
+}
 
 
 /* inizio carrello */

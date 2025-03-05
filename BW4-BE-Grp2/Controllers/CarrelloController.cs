@@ -51,23 +51,6 @@ namespace BW4_BE_Grp2.Controllers
         }
 
         [HttpPost]
-        public IActionResult AggiornaQuantita(Guid idProdotto, int quantita)
-        {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                conn.Open();
-                string query = "UPDATE Ordini SET Quantita = @Quantita WHERE IdProdotto = @IdProdotto";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@Quantita", quantita);
-                    cmd.Parameters.AddWithValue("@IdProdotto", idProdotto);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
         public IActionResult Rimuovi(Guid idProdotto)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
