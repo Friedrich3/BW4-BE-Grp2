@@ -4,6 +4,13 @@
     string Categoria = ViewBag.NomeCategoria;
     ViewData["Title"] = $"EpiTech - {Categoria}";
 }
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb fw-bold">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-primary opacity-75">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Prodotti" asp-action="Index" class="text-primary opacity-75">Prodotti</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewBag.NomeCategoria</li>
+    </ol>
+</nav>
 
 <div>
     <h2 class="fw-bold">@ViewBag.NomeCategoria:</h2>

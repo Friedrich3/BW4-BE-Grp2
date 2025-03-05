@@ -5,6 +5,13 @@
     List<Categoria> Categorie = ViewBag.Categorie;
 }
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb fw-bold">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-primary opacity-75">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Prodotti</li>
+    </ol>
+</nav>
+
 <div>
     <h2 class="fw-bold">I Nostri Prodotti:</h2>
     <p class="fw-bold opacity-75">Tutti prodotti di alta qualità al miglior prezzo. Elettronica ricondizionata con min. 12 mesi di garanzia.</p>
