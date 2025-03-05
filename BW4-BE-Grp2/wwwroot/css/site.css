@@ -260,3 +260,77 @@ a {
     font-size: 16px;
     border-radius: 5px;
 }
+
+/* ------ CAROUSEL HOME ------*/
+
+.CarouselContainer {
+    width: 100%;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    position: relative;
+}
+
+.CarouselTrack {
+    display: flex;
+    width: max-content;
+    animation: ScrollLeft 30s linear infinite; /* Aumentata la durata per uno scorrimento più lento */
+}
+
+.CarouselItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    height: 120px;
+    margin: 0 10px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .CarouselItem:hover {
+        transform: translateY(-5px);
+        background-color: #1B3A2A !important;
+        color: white !important;
+        border-color: #1B3A2A !important;
+    }
+
+    .CarouselItem:focus, .CarouselItem:active {
+        box-shadow: none !important;
+    }
+
+    .CarouselItem img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+    }
+
+    .CarouselItem span {
+        margin-top: 5px;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+.CarouselTrack:hover {
+    animation-play-state: paused;
+}
+
+@keyframes ScrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-50% - 10px)); /* Aggiustato per considerare il margine */
+    }
+}
+
+
+/* ------ FINE CAROUSEL HOME ------*/

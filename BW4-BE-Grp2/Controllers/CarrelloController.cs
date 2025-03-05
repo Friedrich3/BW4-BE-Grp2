@@ -82,5 +82,34 @@ namespace BW4_BE_Grp2.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult AggiungiAlCarrello(Guid idProdotto)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+            DECLARE @IdCarrello UNIQUEIDENTIFIER;
+            SELECT TOP 1 @IdCarrello = IdCarrello FROM Carrello;
+
+            IF EXISTS (SELECT 1 FROM Ordini WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello)
+                UPDATE Ordini SET Quantita = Quantita + 1 WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello
+            ELSE
+                INSERT INTO Ordini (IdProdotto, IdCarrello, PrezzoUnita, Quantita)
+                SELECT @IdProdotto, @IdCarrello, Prezzo, 1 FROM Prodotti WHERE IdProdotto = @IdProdotto";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdProdotto", idProdotto);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
     }
 }
