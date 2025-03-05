@@ -7,7 +7,6 @@ namespace BW4_BE_Grp2.Controllers
     public class DettaglioController : Controller
     {
 
-        //campo privato readonly che può essere valorizzato solo all'interno del costruttore.
         private readonly string? _connectionString;
 
         public DettaglioController()
