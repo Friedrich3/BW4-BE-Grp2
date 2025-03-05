@@ -1,8 +1,8 @@
 @using System.Linq
 @model List<BW4_BE_Grp2.Models.Ordini>
 
-<div class="cart-container">
-    <div class="cart-items">
+<div class="cart-container row">
+    <div class="cart-items order-1 order-md-0 col-12 col-md-7 col-lg-8">
         <h2 class="cart-title">Carrello</h2>
 
         @if (Model == null || !Model.Any())
@@ -33,17 +33,20 @@
                             <span class="quantity">@ordini.Quantita</span>
                             <a asp-controller="Carrello" asp-action="AddQuantity" asp-route-item="@ordini.IdProdotto" asp-route-cart="@ordini.IdCarrello"  class="quantity-btn">+</a>
                         </div>
+                    </div>
+                    <div class="">
                         <form asp-action="Rimuovi" method="post" class="remove-form">
                             <input type="hidden" name="idProdotto" value="@ordini.IdProdotto" />
-                            <button type="submit" class="remove-button">Rimuovi</button>
+                            <button type="submit" class="remove-button fs-4"><i class="bi bi-trash"></i></button>
                         </form>
+
                     </div>
                 </div>
             }
         }
     </div>
 
-    <div class="order-summary">
+    <div class="order-summary order-0 order-md-1 col-12 col-md-4 col-lg-3 mb-4 mb-md-0">
         <h2 class="summary-title">Riepilogo Ordine</h2>
         <div class="summary-details">
             <p>1 Articolo</p>
