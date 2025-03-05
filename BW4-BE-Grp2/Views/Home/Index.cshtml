@@ -107,14 +107,15 @@
 <h2 class="text-center mt-5 mb-5" style="color: #1B3A2A; font-size: 50px;">Consigliati per Te</h2>
 <div class="container">
     <div class="row justify-content-center">
+        @* TODO inserire controlli NULL *@
         @foreach (var product in prodotti)
         {
             <div class="col-6 col-md-4 col-lg-3 mb-4">
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="@product.Immagine" class="card-img-top" alt="@product.Nome" style="height: 150px; object-fit: contain;">
+					<a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto" ><img src="@product.Immagine" class="card-img-top" alt="@product.Nome" style="height: 150px; object-fit: contain;"></a>
                     <div class="card-body p-3">
-                        <h6 class="card-title fw-bold mb-1">@product.Nome</h6>
-                        <p class="card-text fw-bold mb-2" style="color: #1B3A2A;">€ @product.Prezzo.ToString("N2")</p>
+                        <a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto" class="card-title h6 fw-bold mb-1 custom-card-detail">@product.Nome</a>
+                        <a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto"><p class="card-text fw-bold mb-2" style="color: #1B3A2A;">€ @product.Prezzo.ToString("N2")</p></a>
                     </div>
                     <form asp-controller="Carrello" asp-action="AggiungiAlCarrello" method="post">
                         <input type="hidden" name="idProdotto" value="@product.IdProdotto" />

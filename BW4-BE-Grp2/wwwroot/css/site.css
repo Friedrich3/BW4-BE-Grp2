@@ -272,3 +272,7 @@ a {
 
 
 /* ------ FINE CAROUSEL HOME ------*/
+.custom-card-detail:hover {
+    text-decoration: none;
+    color: #CF5500;
+}
