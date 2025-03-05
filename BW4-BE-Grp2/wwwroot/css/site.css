@@ -20,69 +20,6 @@ main {
     min-height: 75vh;
 }
 
-
-/* inizio carrello */
-
-.cart-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.cart-items {
-    width: 60%;
-}
-
-.order-summary {
-    width: 35%;
-    border: 1px solid #ccc;
-    padding: 20px;
-}
-
-    .order-summary h2 {
-        margin-top: 0;
-    }
-
-.cart-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-
-    .cart-item img {
-        width: 100px;
-        height: 100px;
-        margin-right: 20px;
-        object-fit: cover;
-    }
-
-.item-details {
-    flex-grow: 1;
-}
-
-    .item-details h3 {
-        margin: 0;
-    }
-
-.remove-button {
-    background-color: transparent;
-    border: none;
-    color: #777;
-    cursor: pointer;
-}
-
-.checkout-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-/* fine carrello */
-
-
 /*NAVBAR*/
 .custom-nav-color {
     color: #593BCE;
@@ -161,7 +98,6 @@ a {
 }
 
 .cart-items {
-    width: 60%;
     background: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -229,7 +165,6 @@ a {
 }
 
 .order-summary {
-    width: 35%;
     background: #f8f8f8;
     padding: 20px;
     border-radius: 10px;
@@ -302,6 +237,7 @@ a {
         background-color: #1B3A2A !important;
         color: white !important;
         border-color: #1B3A2A !important;
+        text-decoration: none !important;
     }
 
     .CarouselItem:focus, .CarouselItem:active {
@@ -337,3 +273,37 @@ a {
 
 
 /* ------ FINE CAROUSEL HOME ------*/
+.custom-card-detail:hover {
+    text-decoration: none;
+    color: #CF5500;
+}
+
+/* DETTAGLIO PAGE*/
+.detail-button-color {
+    background-color: #332D82;
+    font-weight:600;
+    color:white;
+}
+    .detail-button-color:hover {
+        background-color: #593BCA;
+        font-weight: 600;
+        color: white;
+    }
+
+/*FINE DETTAGLIO PAGE*/
+
+/*PRODOTTI PAGE*/
+
+.BtnCustomHome {
+    color: #1B3A2A;
+    border-color: #1B3A2A;
+    transition: all 0.3s ease;
+}
+
+    .BtnCustomHome:hover {
+        background-color: #1B3A2A;
+        color: #fff;
+        text-decoration-line: none;
+    }
+
+/*FINE PRODOTTI PAGE*/

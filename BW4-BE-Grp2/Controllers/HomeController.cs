@@ -67,9 +67,59 @@ namespace BW4_BE_Grp2.Controllers
             ViewBag.Prodotti = prodotti;
             return View(categorie);
         }
-        public IActionResult Privacy()
+
+        //[HttpGet("/Home/{c:int}/{cat:string}")]
+        public IActionResult Category(int c, string cat)
         {
-            return View();
+            List<Prodotto> prodotti = new List<Prodotto>();
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                // Fetch prodotti
+                string productQuery = "SELECT P.IdProdotto, P.Nome, P.Prezzo, P.Immagine, P.Brand FROM Prodotti as P INNER JOIN  Categorie as C ON P.IdCategoria = C.IdCategoria  WHERE C.IdCategoria = @IdCategoria";
+                using (SqlCommand cmd = new SqlCommand(productQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdCategoria", c);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            prodotti.Add(new Prodotto
+                            {
+                                IdProdotto = reader.GetGuid(0),
+                                Nome = reader.GetString(1),
+                                Prezzo = reader.GetDecimal(2),
+                                Immagine = reader.GetString(3),
+                                Brand = reader.GetString(4)
+                            });
+                        }
+                    }
+                }
+            }
+            ViewBag.NomeCategoria = cat;
+            return View(prodotti);
+        }
+
+        //AGGIUNTA AL CARRELLO
+        [HttpPost("Home/AddOrder/{id:guid}/{number:int}")]
+        public IActionResult AggiungiAlCarrello(Guid id, int quantita)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var query = @"IF EXISTS (SELECT 1 FROM Ordini WHERE IdProdotto = @IdProdotto AND IdCarrello = (SELECT IdCarrello From Carrello))
+                                    UPDATE Ordini Set Quantita = Quantita + @Quantita WHERE IdProdotto = @IdProdotto AND IdCarrello = (SELECT IdCarrello FROM Carrello);  
+                              ELSE
+                                    INSERT INTO Ordini VALUES (@IdProdotto, (SELECT IdCarrello From Carrello),(SELECT Prezzo FROM Prodotti WHERE IdProdotto = @IdProdotto), @Quantita);";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdProdotto", id);
+                    command.Parameters.AddWithValue("@Quantita", quantita);
+                    int risposta = command.ExecuteNonQuery();
+                }
+            }
+            //TODO AGGIUNGERE CONTROLLO NELLA VISTA DI SUCCESSO IN CASO DI INSERIMENTO
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
