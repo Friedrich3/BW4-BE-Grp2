@@ -20,12 +20,26 @@
                 <h4 class="h4">
                         @Model.Nome
                 </h4>
+               <small class="text-secondary fw-bold">@Model.Brand</small>
+               <br />
+                <p class="card-text fw-bold mb-2 fs-4" style="color: #1B3A2A;">€ @Model.Prezzo</p>
                 <p class="card-text">
                         <strong>Descrizione :</strong> @Model.Descrizione
                 </p>
                   <div class="row">
-                    <button type="button" class="btn btn-danger my-2">Aggiungi al Carrello</button>
-                    <button type="button" class="btn btn-success my-2">Acquista subito !</button>
+                      <form method="post" asp-controller="Dettaglio" asp-action="AddOrder" asp-route-id="@Model.productId" asp-route-number="@Model.Quantita">
+                        <div class="col-12 row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="Quantita" class="col-form-label fw-bolder">Quantita' :</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="number" asp-for="@Model.Quantita" id="Quantita" class="form-control" required>
+                            </div>
+                       </div>
+                       <div class="col-12">
+                             <button type="submit" class="btn detail-button-color w-100 my-2 py-3">Aggiungi al Carrello</button>
+                       </div>
+                      </form>
                 </div>
                 <h2 class="h2 text-center">
                     Altre Immagini
