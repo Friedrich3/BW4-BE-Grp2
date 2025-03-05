@@ -1,0 +1,127 @@
+﻿@model List<BW4_BE_Grp2.Models.Prodotto>
+@{
+    ViewData["Title"] = "Samsung Days";
+}
+
+<div class="samsung-container">
+    <header class="samsung-header">
+        <h1>Samsung Days</h1>
+        <p>Scopri l'innovazione Samsung a prezzi imbattibili</p>
+    </header>
+
+    <section class="product-grid">
+        <div class="container">
+            <h2>Prodotti Samsung in Offerta</h2>
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="product-card">
+                            <img src="@product.Immagine" alt="@product.Nome" class="img-fluid">
+                            <div class="product-info">
+                                <h3>@product.Nome</h3>
+                                <p class="price">€@product.Prezzo.ToString("N2")</p>
+                                <a href="@Url.Action("Details", "Dettaglio", new { id = product.IdProdotto })" class="btn btn-samsung-outline">Dettagli</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="samsung-features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <h3>Ricondizionati di Qualità</h3>
+                        <p>Prodotti Samsung certificati e garantiti</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <i class="fas fa-percentage"></i>
+                        <h3>Fino al 40% di Sconto</h3>
+                        <p>Risparmia sui migliori prodotti Samsung</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Garanzia Estesa</h3>
+                        <p>12 mesi di garanzia su tutti i prodotti</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .samsung-container {
+        font-family: 'Samsung Sharp Sans', Arial, sans-serif;
+    }
+
+    .samsung-header {
+        background-color: #1428A0;
+        color: white;
+        text-align: center;
+        padding: 60px 0;
+    }
+
+        .samsung-header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+    .product-grid {
+        padding: 60px 0;
+    }
+
+    .product-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .product-info {
+        padding: 20px;
+    }
+
+    .btn-samsung-outline {
+        color: #1428A0;
+        border: 2px solid #1428A0;
+        background-color: transparent;
+        padding: 8px 18px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-samsung-outline:hover {
+            background-color: #1428A0;
+            color: white;
+        }
+
+    .samsung-features {
+        background-color: #1428A0;
+        color: white;
+        padding: 60px 0;
+    }
+
+    .feature-item {
+        text-align: center;
+    }
+
+        .feature-item i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+</style>
