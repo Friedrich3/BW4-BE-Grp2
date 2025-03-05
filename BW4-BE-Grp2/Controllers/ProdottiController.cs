@@ -18,7 +18,45 @@ namespace BW4_BE_Grp2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<Prodotto> prodotti = new List<Prodotto>();
+            List<Categoria> ListCategoria = new List<Categoria>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT IdProdotto, Nome, Prezzo, Immagine, Brand FROM Prodotti";
+                using (SqlCommand command = new SqlCommand(query, connection)) 
+                {
+                    using (SqlDataReader reader = command.ExecuteReader()) 
+                    {
+                        while (reader.Read()) {
+                            prodotti.Add(new Prodotto
+                            {
+                                IdProdotto = reader.GetGuid(0),
+                                Nome = reader.GetString(1),
+                                Prezzo = reader.GetDecimal(2),
+                                Immagine = reader.GetString(3),
+                                Brand = reader.GetString(4)
+                            });
+                        }
+                    }
+                }
+                connection.Close();
+                connection.Open();
+                string queryCat = "Select IdCategoria, NomeCategoria, ImmagineCategoria FROM Categorie";
+                using (SqlCommand cmd = new SqlCommand(queryCat, connection)) 
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader()) 
+                    {
+                        while (reader.Read())
+                        {
+                            ListCategoria.Add(new Categoria { IdCategoria = reader.GetInt32(0), NomeCategoria = reader.GetString(1), ImmagineCategoria = reader.GetString(2)});
+                        }
+                    }
+                }
+            }
+            
+            ViewBag.Categorie = ListCategoria;
+            return View(prodotti);
         }
 
         public IActionResult Category(int c, string cat)
