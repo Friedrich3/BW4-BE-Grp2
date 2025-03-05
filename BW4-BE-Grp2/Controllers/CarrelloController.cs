@@ -82,5 +82,40 @@ namespace BW4_BE_Grp2.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet("Carrello/RemoveQuantity/{item:guid}/{cart:guid}")]
+        public IActionResult RemoveQuantity(Guid item ,Guid cart) {
+                using (SqlConnection conn = new SqlConnection(_connectionString)) 
+                {
+                    conn.Open();
+                    var query = "UPDATE Ordini SET Quantita = Quantita -1 WHERE (IdProdotto = @idProdotto AND IdCarrello=@idCarrello) AND Quantita > 1";
+                using (SqlCommand command = new SqlCommand(query, conn)) 
+                {
+                    command.Parameters.AddWithValue("@idProdotto", item);
+                    command.Parameters.AddWithValue("@idCarrello", cart);
+                    int risposta = command.ExecuteNonQuery();
+                    //TODO Aggiungere controllo in caso di errore
+                }
+                }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("Carrello/AddQuantity/{item:guid}/{cart:guid}")]
+        public IActionResult AddQuantity(Guid item, Guid cart)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                var query = "UPDATE Ordini SET Quantita = Quantita +1 WHERE (IdProdotto = @idProdotto AND IdCarrello=@idCarrello)";
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@idProdotto", item);
+                    command.Parameters.AddWithValue("@idCarrello", cart);
+                    int risposta = command.ExecuteNonQuery();
+                    //TODO Aggiungere controllo in caso di errore
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
