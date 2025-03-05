@@ -5,6 +5,11 @@
 
 <div class="apple-container">
     <header class="apple-header">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="40" height="40">
+            <symbol xmlns="http://www.w3.org/2000/svg" id="a" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.996 1.74C12.31.008 14.137 0 14.137 0s.272 1.628-1.034 3.197c-1.393 1.675-2.978 1.4-2.978 1.4s-.297-1.316.871-2.857m-.704 3.999c.676 0 1.93-.93 3.564-.93 2.811 0 3.917 2 3.917 2S15.61 7.917 15.61 10.6c0 3.027 2.695 4.07 2.695 4.07s-1.884 5.302-4.428 5.302c-1.168 0-2.077-.788-3.308-.788-1.255 0-2.5.817-3.31.817C4.934 20 2 14.971 2 10.929 2 6.95 4.484 4.865 6.814 4.865c1.515 0 2.69.874 3.478.874" />
+            </symbol><use href="#a" />
+            </svg>
         <h1>Apple Collection</h1>
         <p>Scopri l'innovazione in ogni dettaglio</p>
     </header>
@@ -18,12 +23,17 @@
                     <div class="col-md-4 mb-4">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="@product.Immagine" alt="@product.Nome">
+                                <a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto">
+                                    <img src="@product.Immagine" alt="@product.Nome">
+                                </a>
                             </div>
                             <div class="product-info">
                                 <h3 class="text-center product-name">@product.Nome</h3>
                                 <p class="price">€@product.Prezzo.ToString("N2")</p>
-                                <a href="@Url.Action("Details", "Dettaglio", new { id = product.IdProdotto })" class="btn btn-apple">Scopri di più</a>
+                                <form asp-controller="Carrello" asp-action="AggiungiAlCarrello" method="post" asp-route-id="@product.IdProdotto" asp-route-number="1">
+                                    <input type="hidden" name="idProdotto" value="@product.IdProdotto" />
+                                    <button type="submit" class="btn btn-apple">Aggiungi al Carrello</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -108,6 +118,9 @@
         overflow: hidden;
         transition: all 0.3s ease;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
         .product-card:hover {
@@ -117,17 +130,18 @@
 
     .product-image {
         height: 200px;
-        object-fit: contain;
         width: 100%;
         padding: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
         .product-image img {
-            max-height: 100%;
-            max-width: 100%;
+            max-height: 160px;
+            max-width: 160px;
+            object-fit: contain;
         }
 
     .product-name {

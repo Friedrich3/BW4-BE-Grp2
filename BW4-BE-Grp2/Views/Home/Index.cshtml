@@ -116,6 +116,7 @@
     <div class="row justify-content-center">
         @* TODO inserire controlli NULL *@
         @foreach (var product in prodotti.Take(8))
+        {
             <div class="col-6 col-md-4 col-lg-3 mb-4">
                 <div class="card h-100 border-0 shadow-sm">
                     <a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto"><img src="@product.Immagine" class="card-img-top" alt="@product.Nome" style="height: 150px; object-fit: contain;"></a>

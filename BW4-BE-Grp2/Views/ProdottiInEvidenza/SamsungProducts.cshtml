@@ -4,7 +4,7 @@
 }
 
 <div class="samsung-container">
-    <header class="samsung-header">
+    <header class="samsung-header mt-3">
         <h1>Samsung Days</h1>
         <p>Scopri l'innovazione Samsung a prezzi imbattibili</p>
     </header>
@@ -21,7 +21,10 @@
                             <div class="product-info">
                                 <h3 class="product-name">@product.Nome</h3>
                                 <p class="price">€@product.Prezzo.ToString("N2")</p>
-                                <a href="@Url.Action("Details", "Dettaglio", new { id = product.IdProdotto })" class="btn btn-samsung-outline">Dettagli</a>
+                                <form asp-controller="Carrello" asp-action="AggiungiAlCarrello" method="post" asp-route-id="@product.IdProdotto" asp-route-number="1">
+                                    <input type="hidden" name="idProdotto" value="@product.IdProdotto" />
+                                    <button type="submit" class="btn btn-samsung-outline">Aggiungi al Carrello</button>
+                                </form>
                             </div>
                         </div>
                     </div>

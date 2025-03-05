@@ -74,14 +74,14 @@ namespace BW4_BE_Grp2.Controllers
                 conn.Open();
 
                 string query = @"
-                    DECLARE @IdCarrello UNIQUEIDENTIFIER;
-                    SELECT TOP 1 @IdCarrello = IdCarrello FROM Carrello;
+            DECLARE @IdCarrello UNIQUEIDENTIFIER;
+            SELECT TOP 1 @IdCarrello = IdCarrello FROM Carrello;
 
-                    IF EXISTS (SELECT 1 FROM Ordini WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello)
-                        UPDATE Ordini SET Quantita = Quantita + 1 WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello
-                    ELSE
-                        INSERT INTO Ordini (IdProdotto, IdCarrello, PrezzoUnita, Quantita)
-                        SELECT @IdProdotto, @IdCarrello, Prezzo, 1 FROM Prodotti WHERE IdProdotto = @IdProdotto";
+            IF EXISTS (SELECT 1 FROM Ordini WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello)
+                UPDATE Ordini SET Quantita = Quantita + 1 WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello
+            ELSE
+                INSERT INTO Ordini (IdProdotto, IdCarrello, PrezzoUnita, Quantita)
+                SELECT @IdProdotto, @IdCarrello, Prezzo, 1 FROM Prodotti WHERE IdProdotto = @IdProdotto";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -89,7 +89,18 @@ namespace BW4_BE_Grp2.Controllers
                     cmd.ExecuteNonQuery();
                 }
             }
-            return RedirectToAction("Index", "Home");
+
+            // Ottieni l'URL della pagina precedente
+            string referer = Request.Headers["Referer"].ToString();
+
+            // Se il referer è vuoto, reindirizza alla home page
+            if (string.IsNullOrEmpty(referer))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Altrimenti, reindirizza alla pagina precedente
+            return Redirect(referer);
         }
 
         [HttpGet("Carrello/RemoveQuantity/{item:guid}/{cart:guid}")]
