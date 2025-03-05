@@ -1,7 +1,7 @@
-﻿ @model AddViewModel 
+﻿@model EditViewModel
 @{
 	ViewData["Title"] = "Edit";
-	var ListaCategorie = ViewData["Categorie"] as List<Categoria>;
+	var Lista = ViewBag.Categorie as List<Categoria>;
 }
  
 
@@ -11,7 +11,7 @@
 		<a asp-controller="Admin" asp-action="Index" class="col-2 text-primary text-center align-self-center"><i class="bi bi-arrow-left-square-fill"></i>&nbsp; I miei Prodotti</a>
 	</div>
 	<div class="row">
-		<form method="post" asp-controller="Admin" asp-action="AddEdit">
+		<form method="post" asp-controller="Admin" asp-action="EditSave" asp-route-id="@Model.IdProdotto">
 			<div class="mb-3">
 				<label for="nomeProdotto" asp-for="Nome" class="form-label"></label>
 				<input type="text" class="form-control" id="nomeProdotto" asp-for="Nome" placeholder="Inserisci il nome del prodotto..." required>
@@ -22,28 +22,39 @@
 			</div>
 			<div class="mb-3">
 				<label for="categoriaProdotto" asp-for="IdCategoria" class="form-label"></label>
-				<select class="form-control" asp-for="IdCategoria" asp-items="@(new SelectList(ListaCategorie,"IdCategoria","NomeCategoria"))" required>
-					<option value="">--Seleziona una Categoria--</option>
+				<select class="form-control" asp-for="IdCategoria" required>
+					@if (Lista != null)
+					{
+
+						foreach (var item in Lista)
+						{
+							<option value="@item.IdCategoria">@item.NomeCategoria</option>
+						}
+					}
 				</select>
 			</div>
 			<div class="mb-3">
 				<label for="prezzoProdotto" asp-for="Prezzo" class="form-label"></label>
-				<input type="number" class="form-control" id="prezzoProdotto" asp-for="Prezzo" step="0.01" placeholder="Es.. 99,90" value="" required>
+				<input type="number" class="form-control" id="prezzoProdotto" asp-for="Prezzo" step="0.01" placeholder="Es.. 99,90" required>
 			</div>
 
 			<div class="mb-3 row">
-				<div class="col-10">
+				<div class="col-11">
 				<label for="immagineProdotto" asp-for="Immagine" class="form-label"></label>
 				<input type="text" class="form-control" id="immagineProdotto" asp-for="Immagine" placeholder="ES.. https://m.media-amazon.com/images/I/61gYB2HghmL.__AC_SX300_SY300_QL70_ML2_.jpg" required>
 				</div>
-				<div class="col-2">
-					<img src="@Model.Immagine" width="50"/>
+				<div class="col-1">
+					<img src="@Model.Immagine" class="img-fluid"/>
 				</div>
 			</div>
-
-			<div class="mb-3">
-				<label for="immagineAltProdotto" asp-for="ImmagineAlt" class="form-label"></label>
-				<input type="text" class="form-control" id="immagineAltProdotto" asp-for="ImmagineAlt" placeholder="ES.. https://m.media-amazon.com/images/I/61gYB2HghmL.__AC_SX300_SY300_QL70_ML2_.jpg" required>
+			<div class="mb-3 row">
+				<div class="col-11">
+					<label for="immagineProdotto" asp-for="ImmagineAlt" class="form-label"></label>
+					<input type="text" class="form-control" id="immagineProdotto" asp-for="ImmagineAlt" placeholder="ES.. https://m.media-amazon.com/images/I/61gYB2HghmL.__AC_SX300_SY300_QL70_ML2_.jpg" required>
+				</div>
+				<div class="col-1">
+					<img src="@Model.ImmagineAlt" class="img-fluid" />
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="descrizioneProdotto" asp-for="Descrizione" class="form-label">Descrizione</label>
