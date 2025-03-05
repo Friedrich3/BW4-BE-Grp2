@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Nuova cartella\**" />
+    <Content Remove="Nuova cartella\**" />
+    <EmbeddedResource Remove="Nuova cartella\**" />
+    <None Remove="Nuova cartella\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
   </ItemGroup>
 

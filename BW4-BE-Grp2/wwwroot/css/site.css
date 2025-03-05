@@ -204,7 +204,6 @@ a {
 .CarouselContainer {
     width: 100%;
     overflow: hidden;
-    background-color: #f8f9fa;
     padding: 10px 0;
     position: relative;
 }
@@ -212,7 +211,7 @@ a {
 .CarouselTrack {
     display: flex;
     width: max-content;
-    animation: ScrollLeft 30s linear infinite; /* Aumentata la durata per uno scorrimento più lento */
+    animation: ScrollLeft 30s linear infinite; /* Aumentata la durata per uno scorrimento piÃ¹ lento */
 }
 
 .CarouselItem {
@@ -234,7 +233,7 @@ a {
 
     .CarouselItem:hover {
         transform: translateY(-5px);
-        background-color: #1B3A2A !important;
+        background-color: #6faf8e !important;
         color: white !important;
         border-color: #1B3A2A !important;
         text-decoration: none !important;
@@ -267,12 +266,22 @@ a {
     }
 
     100% {
-        transform: translateX(calc(-50% - 10px)); /* Aggiustato per considerare il margine */
+        transform: translateX(calc(-50% - 10px)); 
     }
 }
 
 
 /* ------ FINE CAROUSEL HOME ------*/
+
+
+.TestimonialsCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stars i {
+    font-size: 1.5rem;
+}
 .custom-card-detail:hover {
     text-decoration: none;
     color: #CF5500;
@@ -294,6 +303,7 @@ a {
 
 /*PRODOTTI PAGE*/
 
+
 .BtnCustomHome {
     color: #1B3A2A;
     border-color: #1B3A2A;
@@ -305,5 +315,6 @@ a {
         color: #fff;
         text-decoration-line: none;
     }
+
 
 /*FINE PRODOTTI PAGE*/
