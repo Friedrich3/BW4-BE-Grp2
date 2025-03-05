@@ -237,6 +237,7 @@ a {
         background-color: #1B3A2A !important;
         color: white !important;
         border-color: #1B3A2A !important;
+        text-decoration: none !important;
     }
 
     .CarouselItem:focus, .CarouselItem:active {
@@ -290,3 +291,19 @@ a {
     }
 
 /*FINE DETTAGLIO PAGE*/
+
+/*PRODOTTI PAGE*/
+
+.BtnCustomHome {
+    color: #1B3A2A;
+    border-color: #1B3A2A;
+    transition: all 0.3s ease;
+}
+
+    .BtnCustomHome:hover {
+        background-color: #1B3A2A;
+        color: #fff;
+        text-decoration-line: none;
+    }
+
+/*FINE PRODOTTI PAGE*/

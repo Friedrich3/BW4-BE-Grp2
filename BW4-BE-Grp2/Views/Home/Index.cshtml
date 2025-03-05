@@ -38,10 +38,11 @@
 
                         @foreach (var category in allCategories)
                         {
-                            <button class="CarouselItem">
+                            <a class="btn CarouselItem" asp-controller="Prodotti" asp-action="Category" asp-route-c="@category.IdCategoria" asp-route-cat="@category.NomeCategoria">
                                 <img src="@category.ImmagineCategoria" alt="@category.NomeCategoria">
                                 <span>@category.NomeCategoria</span>
-                            </button>
+								</a>
+							
                         }
                     }
                 </div>
@@ -126,7 +127,7 @@
         }
     </div>
 </div>
-<style>
+@* <style>
     .BtnCustomHome {
         color: #1B3A2A;
         border-color: #1B3A2A;
@@ -138,7 +139,7 @@
             color: #fff;
             text-decoration-line: none;
         }
-</style>
+</style> *@
 
 <!-- In Evidenza -->
 <h2 class="text-center mb-4" style="color: #1B3A2A; font-size: 50px;">In Evidenza</h2>
