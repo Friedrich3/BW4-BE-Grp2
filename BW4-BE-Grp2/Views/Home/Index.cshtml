@@ -18,101 +18,40 @@
     <h1 class="text-center my-3" style="font-weight: 700; color: #1B3A2A; font-size: 80px;">Benvenuti su EpiTech</h1>
     <p class="text-center mb-3" style="font-size: 1.2rem; color: #555;">La tua destinazione per tecnologia ricondizionata di alta qualità</p>
 </div>
+
 <!-- Categories Section -->
-<div class="container-fluid py-4">
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <div class="d-flex flex-wrap justify-content-center gap-2">
-                @{
-                    var firstSixCategories = Model.Take(6).ToList();
-                    var remainingCategories = Model.Skip(6).ToList();
-                }
+<div class="ContainerFluid py-4">
+    <div class="Row justify-content-center">
+        <div class="Col-12">
+            <div class="CarouselContainer">
+                <div class="CarouselTrack">
+                    @{
+                        var allCategories = Model.ToList();
+                    }
 
-                @foreach (var category in firstSixCategories)
-                {
-                    <button class="btn  CategoryBtn BtnCustomHome" style="width: 120px; height: 120px;">
-                        <img src="@category.ImmagineCategoria" alt="@category.NomeCategoria" style="width: 60px; height: 60px; object-fit: contain;">
-                        <div class="mt-2 small">@category.NomeCategoria</div>
-                    </button>
-                }
+                    @for (int i = 0; i < 2; i++)
+                    {
+                        <button class="CarouselItem">
+                            <img src="https://help.apple.com/assets/665F9C26873A6ED7440C41D7/665F9C27873A6ED7440C41DD/en_US/b2a01456b47f9c24a30087980101be2c.png">
+                            <span>Tutti i prodotti</span>
+                        </button>
 
-                <div class="dropdown">
-                    <button class="btn CategoryBtn BtnCustomHome dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="width: 120px; height: 120px;">
-                        <div>Altro</div>
-                    </button>
-                    <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-                        @foreach (var category in remainingCategories)
+                        @foreach (var category in allCategories)
                         {
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center py-2 px-3 category-item" href="#">
-                                    <img src="@category.ImmagineCategoria" alt="@category.NomeCategoria" style="width: 40px; height: 40px; object-fit: contain;">
-                                    <span class="ms-3">@category.NomeCategoria</span>
-                                </a>
-                            </li>
+                            <button class="CarouselItem">
+                                <img src="@category.ImmagineCategoria" alt="@category.NomeCategoria">
+                                <span>@category.NomeCategoria</span>
+                            </button>
                         }
-                    </ul>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    .CategoryBtn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 10px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
 
-        .CategoryBtn:hover,
-        .CategoryBtn.show {
-            transform: translateY(-5px);
-            background-color: #1B3A2A !important;
-            color: white !important;
-            border-color: #1B3A2A !important;
-        }
 
-        .CategoryBtn:focus, .CategoryBtn:active {
-            box-shadow: none !important;
-        }
-
-    .dropdown-menu {
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .category-item {
-        transition: background-color 0.3s ease;
-    }
-
-        .category-item:hover {
-            background-color: #8aa697;
-            text-decoration-line: none;
-        }
-
-        .category-item img {
-            transition: transform 0.3s ease;
-        }
-
-        .category-item:hover img {
-            transform: scale(1.1);
-        }
-
-    .dropdown-item {
-        color: #333;
-        font-weight: 500;
-    }
-
-        .dropdown-item:hover {
-            color: #1B3A2A;
-        }
-
-</style>
 
 <!-- svg -->
 <div class="d-flex justify-content-center align-items-center gap-5 py-2">
@@ -177,13 +116,15 @@
                         <h6 class="card-title fw-bold mb-1">@product.Nome</h6>
                         <p class="card-text fw-bold mb-2" style="color: #1B3A2A;">€ @product.Prezzo.ToString("N2")</p>
                     </div>
-                    <a href="@Url.Action("Index", "Dettaglio", new { id = product.IdProdotto })" class="btn BtnCustomHome CategoryBtn btn-sm w-100">Acquista Ora</a>
+                    <form asp-controller="Carrello" asp-action="AggiungiAlCarrello" method="post">
+                        <input type="hidden" name="idProdotto" value="@product.IdProdotto" />
+                        <button type="submit" class="btn BtnCustomHome CategoryBtn btn-sm w-100">Acquista Ora</button>
+                    </form>
                 </div>
             </div>
         }
     </div>
 </div>
-
 <style>
     .BtnCustomHome {
         color: #1B3A2A;
@@ -266,4 +207,6 @@
         </div>
     </div>
 </div>
+
+
 

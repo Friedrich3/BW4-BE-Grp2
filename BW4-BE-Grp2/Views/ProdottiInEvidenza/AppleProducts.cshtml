@@ -21,7 +21,7 @@
                                 <img src="@product.Immagine" alt="@product.Nome">
                             </div>
                             <div class="product-info">
-                                <h3>@product.Nome</h3>
+                                <h3 class="text-center product-name">@product.Nome</h3>
                                 <p class="price">€@product.Prezzo.ToString("N2")</p>
                                 <a href="@Url.Action("Details", "Dettaglio", new { id = product.IdProdotto })" class="btn btn-apple">Scopri di più</a>
                             </div>
@@ -129,6 +129,16 @@
             max-height: 100%;
             max-width: 100%;
         }
+
+    .product-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
 
     .product-info {
         padding: 20px;

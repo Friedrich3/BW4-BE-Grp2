@@ -17,9 +17,9 @@
                 {
                     <div class="col-md-4 mb-4">
                         <div class="product-card">
-                            <img src="@product.Immagine" alt="@product.Nome" class="img-fluid">
+                            <img src="@product.Immagine" alt="@product.Nome" class="img-fluid product-image">
                             <div class="product-info">
-                                <h3>@product.Nome</h3>
+                                <h3 class="product-name">@product.Nome</h3>
                                 <p class="price">€@product.Prezzo.ToString("N2")</p>
                                 <a href="@Url.Action("Details", "Dettaglio", new { id = product.IdProdotto })" class="btn btn-samsung-outline">Dettagli</a>
                             </div>
@@ -96,6 +96,26 @@
         padding: 20px;
     }
 
+    .product-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    .product-image {
+        height: 200px;
+        object-fit: contain;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .btn-samsung-outline {
         color: #1428A0;
         border: 2px solid #1428A0;
@@ -109,6 +129,8 @@
             background-color: #1428A0;
             color: white;
         }
+
+
 
     .samsung-features {
         background-color: #1428A0;
