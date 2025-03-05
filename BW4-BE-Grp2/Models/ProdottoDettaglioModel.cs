@@ -10,5 +10,7 @@
         public string? Descrizione;
         public string? Immagine;
         public string? ImmagineAlt;
+
+        public int Quantita { get; set; } = 1;
     }
 }
