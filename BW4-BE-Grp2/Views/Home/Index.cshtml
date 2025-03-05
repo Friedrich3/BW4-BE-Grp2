@@ -117,7 +117,7 @@
                         <a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto" class="card-title h6 fw-bold mb-1 custom-card-detail">@product.Nome</a>
                         <a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto"><p class="card-text fw-bold mb-2" style="color: #1B3A2A;">€ @product.Prezzo.ToString("N2")</p></a>
                     </div>
-                    <form asp-controller="Carrello" asp-action="AggiungiAlCarrello" method="post">
+                    <form asp-controller="Carrello" asp-action="AggiungiAlCarrello" method="post" asp-route-id="@product.IdProdotto" asp-route-number="1">
                         <input type="hidden" name="idProdotto" value="@product.IdProdotto" />
                         <button type="submit" class="btn BtnCustomHome CategoryBtn btn-sm w-100">Acquista Ora</button>
                     </form>

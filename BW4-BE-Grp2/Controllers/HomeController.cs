@@ -72,6 +72,28 @@ namespace BW4_BE_Grp2.Controllers
             return View();
         }
 
+        //AGGIUNTA AL CARRELLO
+        [HttpPost("Home/AddOrder/{id:guid}/{number:int}")]
+        public IActionResult AggiungiAlCarrello(Guid id, int quantita)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var query = @"IF EXISTS (SELECT 1 FROM Ordini WHERE IdProdotto = @IdProdotto AND IdCarrello = (SELECT IdCarrello From Carrello))
+                                    UPDATE Ordini Set Quantita = Quantita + @Quantita WHERE IdProdotto = @IdProdotto AND IdCarrello = (SELECT IdCarrello FROM Carrello);  
+                              ELSE
+                                    INSERT INTO Ordini VALUES (@IdProdotto, (SELECT IdCarrello From Carrello),(SELECT Prezzo FROM Prodotti WHERE IdProdotto = @IdProdotto), @Quantita);";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdProdotto", id);
+                    command.Parameters.AddWithValue("@Quantita", quantita);
+                    int risposta = command.ExecuteNonQuery();
+                }
+            }
+            //TODO AGGIUNGERE CONTROLLO NELLA VISTA DI SUCCESSO IN CASO DI INSERIMENTO
+            return RedirectToAction("Index");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
