@@ -90,7 +90,7 @@ namespace BW4_BE_Grp2.Controllers
                 }
             }
 
-            // Ottieni l'URL della pagina precedente
+            // Ottiene URL della pagina precedente
             string referer = Request.Headers["Referer"].ToString();
 
             // Se il referer è vuoto, reindirizza alla home page
