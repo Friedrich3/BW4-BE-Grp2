@@ -29,9 +29,9 @@
                         <p class="product-description">Garanzia: 12 mesi</p>
                         <p class="product-price">@ordini.PrezzoUnita €</p>
                         <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
+                            <a asp-controller="Carrello" asp-action="RemoveQuantity" asp-route-item="@ordini.IdProdotto" asp-route-cart="@ordini.IdCarrello" class="quantity-btn">-</a>
                             <span class="quantity">@ordini.Quantita</span>
-                            <button class="quantity-btn">+</button>
+                            <a asp-controller="Carrello" asp-action="AddQuantity" asp-route-item="@ordini.IdProdotto" asp-route-cart="@ordini.IdCarrello"  class="quantity-btn">+</a>
                         </div>
                         <form asp-action="Rimuovi" method="post" class="remove-form">
                             <input type="hidden" name="idProdotto" value="@ordini.IdProdotto" />

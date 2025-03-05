@@ -51,23 +51,6 @@ namespace BW4_BE_Grp2.Controllers
         }
 
         [HttpPost]
-        public IActionResult AggiornaQuantita(Guid idProdotto, int quantita)
-        {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                conn.Open();
-                string query = "UPDATE Ordini SET Quantita = @Quantita WHERE IdProdotto = @IdProdotto";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@Quantita", quantita);
-                    cmd.Parameters.AddWithValue("@IdProdotto", idProdotto);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
         public IActionResult Rimuovi(Guid idProdotto)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -91,14 +74,14 @@ namespace BW4_BE_Grp2.Controllers
                 conn.Open();
 
                 string query = @"
-            DECLARE @IdCarrello UNIQUEIDENTIFIER;
-            SELECT TOP 1 @IdCarrello = IdCarrello FROM Carrello;
+                    DECLARE @IdCarrello UNIQUEIDENTIFIER;
+                    SELECT TOP 1 @IdCarrello = IdCarrello FROM Carrello;
 
-            IF EXISTS (SELECT 1 FROM Ordini WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello)
-                UPDATE Ordini SET Quantita = Quantita + 1 WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello
-            ELSE
-                INSERT INTO Ordini (IdProdotto, IdCarrello, PrezzoUnita, Quantita)
-                SELECT @IdProdotto, @IdCarrello, Prezzo, 1 FROM Prodotti WHERE IdProdotto = @IdProdotto";
+                    IF EXISTS (SELECT 1 FROM Ordini WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello)
+                        UPDATE Ordini SET Quantita = Quantita + 1 WHERE IdProdotto = @IdProdotto AND IdCarrello = @IdCarrello
+                    ELSE
+                        INSERT INTO Ordini (IdProdotto, IdCarrello, PrezzoUnita, Quantita)
+                        SELECT @IdProdotto, @IdCarrello, Prezzo, 1 FROM Prodotti WHERE IdProdotto = @IdProdotto";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -109,7 +92,40 @@ namespace BW4_BE_Grp2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet("Carrello/RemoveQuantity/{item:guid}/{cart:guid}")]
+        public IActionResult RemoveQuantity(Guid item, Guid cart)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                var query = "UPDATE Ordini SET Quantita = Quantita -1 WHERE (IdProdotto = @idProdotto AND IdCarrello=@idCarrello) AND Quantita > 1";
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@idProdotto", item);
+                    command.Parameters.AddWithValue("@idCarrello", cart);
+                    int risposta = command.ExecuteNonQuery();
+                    //TODO Aggiungere controllo in caso di errore
+                }
+            }
+            return RedirectToAction("Index");
+        }
 
-
+        [HttpGet("Carrello/AddQuantity/{item:guid}/{cart:guid}")]
+        public IActionResult AddQuantity(Guid item, Guid cart)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                var query = "UPDATE Ordini SET Quantita = Quantita +1 WHERE (IdProdotto = @idProdotto AND IdCarrello=@idCarrello)";
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@idProdotto", item);
+                    command.Parameters.AddWithValue("@idCarrello", cart);
+                    int risposta = command.ExecuteNonQuery();
+                    //TODO Aggiungere controllo in caso di errore
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
