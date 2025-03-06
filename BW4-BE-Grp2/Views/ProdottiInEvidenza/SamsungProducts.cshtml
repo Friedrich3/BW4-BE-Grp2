@@ -17,7 +17,9 @@
                 {
                     <div class="col-md-4 mb-4">
                         <div class="product-card">
-                            <img src="@product.Immagine" alt="@product.Nome" class="img-fluid product-image">
+                            <a asp-controller="Dettaglio" asp-action="Index" asp-route-id="@product.IdProdotto">
+                                <img src="@product.Immagine" alt="@product.Nome" class="img-fluid product-image">
+                            </a>
                             <div class="product-info">
                                 <h3 class="product-name">@product.Nome</h3>
                                 <p class="price">€@product.Prezzo.ToString("N2")</p>
